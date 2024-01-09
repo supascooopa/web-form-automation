@@ -1,4 +1,3 @@
-#bismillah
 import os
 import time
 import openpyxl
