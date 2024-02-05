@@ -49,7 +49,7 @@ path_to_CE = [os.path.abspath("CE") + "\\" + file + " " for file in list_of_CE]
 combine = "\n".join(path_to_CE)
 
 driver = webdriver.Firefox(executable_path="geckodriver.exe")
-url = "https://www.ktemo.org/e_EMO"
+url = "https://www.ktemo.org/ehizmetler.php"
 
 emo_company_auto_fill = {
     "ctl00_cp_cmb_cmb_ithalatci_ad_liste_combo_Input": "",
@@ -87,13 +87,12 @@ emo_products_auto_fill = {
 #----------------ENTERING SYSTEM & FILLING OUT THE FORM-----------------#
 
 driver.get(url)
-login = driver.find_element_by_css_selector("td a")
+login = driver.find_element_by_class_name("servicesemo")
 login.click()
 time.sleep(5)
 auto_fill(emo_company_auto_fill)
 
 #----------------UPLOADING INVOICE-----------------#
-
 upload_invoice = driver.find_element_by_id("ctl00_cp_file_file_proforma_fatura_imgPopupRhea")
 upload_invoice.click()
 driver.implicitly_wait(5)
@@ -126,7 +125,7 @@ for row in ws.iter_rows(min_col=2, max_col=6, min_row=6, values_only=True):
         PRODUCT_PRICE = str(row[4])
         emo_products_auto_fill["ctl00_cp_txtCol_grd_malzeme_listesi_txtCol_Birim_Fiyat_text"] = PRODUCT_PRICE
         auto_fill(emo_products_auto_fill)
-        time.sleep(2)
+        time.sleep(3)
         driver.find_element_by_id("ctl00_cp_btnUpdate").click()
         time.sleep(5)
 driver.find_element_by_id("ctl00_cp_btnCancel").click()
